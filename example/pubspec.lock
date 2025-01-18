@@ -131,6 +131,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.15.0"
+  modal_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: modal_bottom_sheet
+      sha256: eac66ef8cb0461bf069a38c5eb0fa728cee525a531a8304bd3f7b2185407c67e
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   path:
     dependency: transitive
     description:
@@ -208,6 +216,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.3.0"
+  world_info_plus:
+    dependency: "direct main"
+    description:
+      name: world_info_plus
+      sha256: ce8b00fbf2e9fc06098f093d2c19f27e7071294f6142e243fab71d6c89211dd6
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0+3"
 sdks:
   dart: ">=3.6.1 <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"

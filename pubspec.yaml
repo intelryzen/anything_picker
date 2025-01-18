@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  modal_bottom_sheet: ^3.0.0
+  world_info_plus:
 
 dev_dependencies:
   flutter_test:
