@@ -44,7 +44,7 @@ class _ExamplePageState extends State<ExamplePage> {
                   expand: true,
                   context: context,
                   backgroundColor: Colors.transparent,
-                  builder: (context) => ModalInsideModal(),
+                  builder: (context) => ModalInsideModal(ModalScrollController.of(context)!),
                 );
               },
               child: Text("이동")),

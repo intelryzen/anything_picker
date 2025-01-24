@@ -18,6 +18,8 @@ class Language extends ISuspensionBean {
   String toString() {
     return json.encode(this);
   }
+
+  Map<String, dynamic> toJson() => {'text': text};
 }
 
 // class Languages extends Language implements ISuspensionBean {

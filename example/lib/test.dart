@@ -9,23 +9,24 @@ import 'package:world_info_plus/world_info_plus.dart';
 import 'package:example/language.dart';
 
 class ModalInsideModal extends StatefulWidget {
-  final bool reverse;
+  final ScrollController scrollController;
 
-  ModalInsideModal({super.key, this.reverse = false});
+  const ModalInsideModal(
+    this.scrollController, {
+    super.key,
+  });
 
   @override
   State<ModalInsideModal> createState() => _ModalInsideModalState();
 }
 
 class _ModalInsideModalState extends State<ModalInsideModal> {
-  // Scroll offset listener
-  final ScrollController _azScrollController = ScrollController();
-
   List<Language> originList = [];
   List<Language> dataList = [];
+  bool isScrolled = false; // 스크롤 상태를 저장하는 변수
 
-  final ScrollController _scrollController = ScrollController();
-  final ItemScrollController itemScrollController = ItemScrollController();
+  late final ItemScrollController itemScrollController =
+      ItemScrollController(scrollController: widget.scrollController);
 
   @override
   void initState() {
@@ -43,21 +44,17 @@ class _ModalInsideModalState extends State<ModalInsideModal> {
     _handleList(originList);
 
     // ScrollController의 listener 추가
-    // _scrollController.addListener(() {
-    //   if (_scrollController.position.extentAfter == 0 &&
-    //       _scrollController.position.pixels >
-    //           _scrollController.position.maxScrollExtent) {
-    //     // 현재 스크롤이 overflow 되었음을 감지
-    //     setState(() {
-    //       _isOverflow = true;
-    //     });
-    //   } else {
-    //     // 정상 범위 내로 돌아왔을 때
-    //     setState(() {
-    //       _isOverflow = false;
-    //     });
-    //   }
-    // });
+    widget.scrollController.addListener(() {
+      if (widget.scrollController.offset > 0 && !isScrolled) {
+        setState(() {
+          isScrolled = true;
+        });
+      } else if (widget.scrollController.offset <= 0 && isScrolled) {
+        setState(() {
+          isScrolled = false;
+        });
+      }
+    });
   }
 
   void _handleList(List<Language> list) {
@@ -93,122 +90,159 @@ class _ModalInsideModalState extends State<ModalInsideModal> {
     return false;
   }
 
+  Color get backgroundColor =>
+      isScrolled ? Palette.scrolledAppBarColor : CupertinoColors.white;
+
   @override
   Widget build(BuildContext context) {
-    final con = ModalScrollController.of(context);
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: CupertinoColors.white,
-        surfaceTintColor: CupertinoColors.systemGrey,
-        toolbarHeight: 60,
+        backgroundColor: backgroundColor,
+        surfaceTintColor: Colors.transparent,
+        toolbarHeight: 56,
+        elevation: 0,
+        scrolledUnderElevation: 0,
         title: Text(
           "지역 선택",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 17,
             fontWeight: FontWeight.bold,
           ),
         ),
-        leading: SizedBox(),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(56),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: SizedBox(
-              height: 56,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: TextField(
-                  decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                      fillColor: Palette.textFieldBackground,
-                      filled: true,
-                      isDense: true,
-                      prefixIconConstraints: BoxConstraints(minWidth: 38),
-                      prefixIcon: Icon(CupertinoIcons.search, size: 24),
-                      prefixIconColor: CupertinoColors.systemGrey,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      hintText: "검색",
-                      hintStyle: TextStyle(
-                          fontSize: 18, color: CupertinoColors.secondaryLabel)),
-                ),
-              ),
-            ),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 18.0),
-            child: SizedBox(
-              height: 30,
-              width: 30,
-              child: IconButton(
-                onPressed: () {},
-                highlightColor: Colors.transparent,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(
-                    CupertinoColors.systemGrey5,
-                  ),
-                  padding: WidgetStatePropertyAll(EdgeInsets.zero),
-                ),
-                color: CupertinoColors.secondaryLabel,
-                iconSize: 22,
-                icon: Icon(
-                  Icons.clear,
-                ),
-              ),
-            ),
-          )
-        ],
+        leading: const SizedBox(),
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.only(right: Style.padding),
+        //     child: SizedBox(
+        //       height: 30,
+        //       width: 30,
+        //       child: CupertinoButton(
+        //         onPressed: () {
+        //           Navigator.pop(context);
+        //         },
+        //         padding: EdgeInsets.zero,
+        //         color: CupertinoColors.systemGrey5,
+        //         borderRadius: BorderRadius.circular(360),
+        //         child: Icon(
+        //           color: CupertinoColors.secondaryLabel,
+        //           Icons.clear,
+        //         ),
+        //       ),
+        //     ),
+        //   )
+        // ],
       ),
       backgroundColor: Palette.background,
-      body: AzListView(
-          data: dataList,
-          itemCount: dataList.length,
-          physics: ClampingScrollPhysics(),
-          itemScrollController: ItemScrollController(
-              scrollController: ModalScrollController.of(context)),
-          // susItemBuilder: (BuildContext context, int index) {
-          //   Language model = list[index];
-          //   String tag = model.getSuspensionTag();
-          //   if (imgFavorite == tag) {
-          //     return Container();
-          //   }
-          //   return Utils.getSusItem(context, tag, susHeight: susItemHeight);
-          // },
-          susItemBuilder: (BuildContext context, int index) {
-            Language model = dataList[index];
-            return getSusItem(context, model.getSuspensionTag());
-          },
-          susItemHeight: Style.susHeight,
-          indexBarOptions: IndexBarOptions(
-            hapticFeedback: true,
-            textStyle: TextStyle(
-              color: CupertinoColors.systemBlue,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          Container(
+            color: backgroundColor,
+            padding: const EdgeInsets.only(
+              left: Style.padding,
+              right: Style.padding,
+              bottom: 15,
+            ),
+            child: TextField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 5,
+                ),
+                fillColor: Palette.textFieldBackground,
+                filled: true,
+                isDense: true,
+                prefixIconConstraints: BoxConstraints(minWidth: 34),
+                prefixIcon: Icon(CupertinoIcons.search, size: 21),
+                prefixIconColor: CupertinoColors.systemGrey,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                hintText: "검색",
+                hintStyle: TextStyle(
+                    fontSize: 18, color: CupertinoColors.secondaryLabel),
+              ),
+              style: TextStyle(fontSize: 18),
+              cursorHeight: 22,
             ),
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return SizedBox(
-              height: 50,
-              child: ListTile(
-                title: Text(dataList[index].text),
-              ),
-            );
-          }),
+          if (isScrolled)
+            Divider(
+              height: 0,
+              thickness: 0,
+              color: CupertinoColors.systemGrey,
+            ),
+          Expanded(
+            child: AzListView(
+                data: dataList,
+                itemCount: dataList.length,
+                physics: ClampingScrollPhysics(),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom),
+                itemScrollController: itemScrollController,
+                // susItemBuilder: (BuildContext context, int index) {
+                //   Language model = list[index];
+                //   String tag = model.getSuspensionTag();
+                //   if (imgFavorite == tag) {
+                //     return Container();
+                //   }
+                //   return Utils.getSusItem(context, tag, susHeight: susItemHeight);
+                // },
+                susItemBuilder: (BuildContext context, int index) {
+                  Language model = dataList[index];
+                  return getSusItem(context, model.getSuspensionTag());
+                },
+                susItemHeight: Style.susHeight,
+                indexBarItemHeight: Style.indexBarItemHeight,
+                indexBarWidth: Style.indexBarWidth,
+                indexBarOptions: IndexBarOptions(
+                  hapticFeedback: true,
+                  needRebuild: true,
+                  indexHintOffset: Offset(0, 0),
+                  textStyle: TextStyle(
+                      color: CupertinoColors.systemBlue,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      height: 1),
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      Container(
+                        height: Style.itemHeight,
+                        alignment: Alignment.centerLeft,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Style.padding),
+                        child: Text(
+                          dataList[index].text,
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      if (index != dataList.length - 1 &&
+                          dataList[index].getSuspensionTag() ==
+                              dataList[index + 1].getSuspensionTag())
+                        Divider(
+                          height: 0,
+                          thickness: 0,
+                          color: Palette.separatedColor,
+                        )
+                    ],
+                  );
+                }),
+          ),
+        ],
+      ),
     );
   }
 
@@ -218,12 +252,18 @@ class _ModalInsideModalState extends State<ModalInsideModal> {
       height: susHeight,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(left: 18.0),
-      color: Palette.susItemColor,
+      color: isScrolled
+          ? Palette.scrolledAppBarColor // 스크롤 시 색상
+          : Palette.susItemColor,
       alignment: Alignment.centerLeft,
       child: Text(
         tag,
         softWrap: false,
-        style: TextStyle(fontSize: 14.0, color: Palette.susTextColor),
+        style: TextStyle(
+          fontSize: 14.0,
+          color: Palette.susTextColor,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
