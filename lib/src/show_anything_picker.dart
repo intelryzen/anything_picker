@@ -15,6 +15,8 @@ Future showAnythingPicker(
   String? selectedCode,
   bool? isSortBySubtext,
   String Function(String)? tagIndexMapper,
+  Widget Function(BuildContext context, Anything data, bool isSelected)?
+      customItemBuilder,
 }) async {
   if (defaultTargetPlatform == TargetPlatform.iOS) {
     return await CupertinoScaffold.showCupertinoModalBottomSheet(
@@ -25,12 +27,13 @@ Future showAnythingPicker(
         ModalScrollController.of(context)!,
         title: title,
         hintText: hintText,
-        dataList: dataList,
+        dataList: dataList, 
         indexBarData: indexBarData,
         selectedCode: selectedCode,
         favoriteCodes: favoriteCodes,
         tagIndexMapper: tagIndexMapper,
         isSortBySubtext: isSortBySubtext,
+        customItemBuilder: customItemBuilder,
       ),
     );
   } else {
