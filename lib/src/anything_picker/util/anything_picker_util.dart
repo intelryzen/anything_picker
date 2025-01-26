@@ -1,13 +1,10 @@
-
-import 'package:anything_picker/src/anything_picker/const/anything_picker_const.dart';
-
 abstract class AnythingPickerUtil {
-  static String getEnglishInitial(String text) {
-    if (text.isEmpty) {
+  static String getEnglishInitial(String input) {
+    if (input.isEmpty) {
       return "#";
     }
 
-    String initialText = text.substring(0, 1).toUpperCase();
+    String initialText = input.substring(0, 1).toUpperCase();
 
     if (RegExp("[A-Z]").hasMatch(initialText)) {
       return initialText;
@@ -16,12 +13,36 @@ abstract class AnythingPickerUtil {
     }
   }
 
-  static String getKoreanInitial(String text) {
-    if (text.isEmpty) {
+  /// 문자열에 포함된 모든 한글 음절의 초성을 추출하여 반환
+  static String getKoreanInitial(String input) {
+    if (input.isEmpty) {
       return "#";
     }
 
-    // 쌍자음을 단일 자음으로 매핑
+    /// 19개 한글 초성 테이블
+    const List<String> initials = [
+      'ㄱ', // 0
+      'ㄲ', // 1
+      'ㄴ', // 2
+      'ㄷ', // 3
+      'ㄸ', // 4
+      'ㄹ', // 5
+      'ㅁ', // 6
+      'ㅂ', // 7
+      'ㅃ', // 8
+      'ㅅ', // 9
+      'ㅆ', // 10
+      'ㅇ', // 11
+      'ㅈ', // 12
+      'ㅉ', // 13
+      'ㅊ', // 14
+      'ㅋ', // 15
+      'ㅌ', // 16
+      'ㅍ', // 17
+      'ㅎ', // 18
+    ];
+
+    /// 겹받침(쌍자음) -> 기본 초성으로 매핑
     const Map<String, String> doubleToSingle = {
       'ㄲ': 'ㄱ',
       'ㄸ': 'ㄷ',
@@ -29,33 +50,33 @@ abstract class AnythingPickerUtil {
       'ㅆ': 'ㅅ',
       'ㅉ': 'ㅈ',
     };
+    final buffer = StringBuffer();
 
-    // 초성 추출 결과를 담을 리스트
-    List<String> initials = [];
+    for (int i = 0; i < input.length; i++) {
+      final char = input[i];
+      final codeUnit = char.codeUnitAt(0);
 
-    for (int i = 0; i < text.length; i++) {
-      String char = text[i];
-
-      // 유니코드로 변환
-      int codeUnit = char.codeUnitAt(0);
-
-      // 한글 범위 체크 (가 ~ 힣)
+      // 유니코드 한글 범위(가 ~ 힣) 내에 있는지 확인
       if (codeUnit >= 0xAC00 && codeUnit <= 0xD7A3) {
-        // 초성 계산 공식
-        int index = ((codeUnit - 0xAC00) ~/ 28) ~/ 21;
-        print(index);
-        print(text);
-        String initial = indexBarKoreanData[index];
+        // '가'(U+AC00)를 0으로 두었을 때의 오프셋
+        final base = codeUnit - 0xAC00;
+        // 초성 인덱스: 각 초성은 588개 음절 단위로 구분
+        final initialIndex = base ~/ 588;
 
-        // 쌍자음을 단일 자음으로 변환
-        initials.add(doubleToSingle[initial] ?? initial);
+        // 해당 음절의 초성
+        String initial = initials[initialIndex];
+
+        // 쌍자음은 기본 자음으로 치환
+        if (doubleToSingle.containsKey(initial)) {
+          initial = doubleToSingle[initial]!;
+        }
+
+        buffer.write(initial);
       } else {
-        // 한글이 아니면 원래 문자 그대로 추가
-        initials.add("#");
+        buffer.write("#");
       }
     }
 
-    // 초성 문자열 반환
-    return initials.join().substring(0, 1);
+    return buffer.toString().substring(0, 1);
   }
 }

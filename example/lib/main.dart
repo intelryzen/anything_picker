@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:anything_picker/anything_picker.dart';
 
 void main() {
   runApp(const MyApp());

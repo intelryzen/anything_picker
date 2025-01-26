@@ -130,6 +130,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.20.2"
+  language_info_plus:
+    dependency: "direct main"
+    description:
+      name: language_info_plus
+      sha256: "3f368eeb5513c3e73f5a217ac1433079c2221aab5129c7f594fa9d2c9a798d19"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   leak_tracker:
     dependency: transitive
     description:
