@@ -130,14 +130,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.20.2"
-  language_info_plus:
-    dependency: transitive
-    description:
-      name: language_info_plus
-      sha256: "3f368eeb5513c3e73f5a217ac1433079c2221aab5129c7f594fa9d2c9a798d19"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -295,14 +287,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.3.0"
-  world_info_plus:
-    dependency: transitive
-    description:
-      name: world_info_plus
-      sha256: ce8b00fbf2e9fc06098f093d2c19f27e7071294f6142e243fab71d6c89211dd6
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0+3"
 sdks:
   dart: ">=3.6.1 <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"

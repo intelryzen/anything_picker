@@ -16,8 +16,6 @@ dependencies:
   gaimon: ^1.4.0
   cupertino_icons: ^1.0.8
   modal_bottom_sheet: ^3.0.0
-  world_info_plus: ^1.0.0+3
-  language_info_plus:
   common_utils: ^2.1.0
 
 dev_dependencies:
@@ -30,7 +28,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # To add assets to your package, add an assets section, like this:
   # assets:
   #   - assets/images/circle-xmark.svg_picture
