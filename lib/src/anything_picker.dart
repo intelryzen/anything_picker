@@ -29,16 +29,17 @@ class AnythingPicker extends StatefulWidget {
     required this.title,
     required this.hintText,
     this.stickyHeader = false,
-    this.indexBarData = indexBarEnglishData,
     this.selectedCode,
     this.customItemBuilder,
     this.itemHeight = CupertinoStyle.itemHeight,
     this.isSortBySubtext = false,
     List<String>? favoriteCodes,
+    List<String>? indexBarData,
     String Function(String)? tagIndexMapper,
     super.key,
   })  : tagIndexMapper = tagIndexMapper ?? AnythingPickerUtil.getEnglishInitial,
-        favoriteCodes = favoriteCodes ?? const [];
+        favoriteCodes = favoriteCodes ?? const [],
+        indexBarData = indexBarData ?? indexBarEnglishData;
 
   @override
   State<AnythingPicker> createState() => _AnythingPickerState();

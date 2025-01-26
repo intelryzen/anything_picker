@@ -10,6 +10,7 @@ Future showAnythingPicker(
   required String hintText,
   required List<Anything> dataList,
   List<String>? favoriteCodes,
+  List<String>? indexBarData,
   String? selectedCode,
   String Function(String)? tagIndexMapper,
 }) async {
@@ -23,6 +24,7 @@ Future showAnythingPicker(
         title: title,
         hintText: hintText,
         dataList: dataList,
+        indexBarData: indexBarData,
         selectedCode: selectedCode,
         favoriteCodes: favoriteCodes,
         tagIndexMapper: tagIndexMapper,
