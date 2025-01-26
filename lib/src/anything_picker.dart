@@ -70,7 +70,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
           widget.title,
           style: TextStyle(
             fontSize: 17,
-            color: CupertinoUtil.text(context),
+            color: CupertinoPaletteUtil.text(context),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -92,14 +92,14 @@ class _AnythingPickerState extends State<AnythingPicker> {
                   horizontal: 20,
                   vertical: 5,
                 ),
-                fillColor: CupertinoUtil.textFieldBackground(context),
+                fillColor: CupertinoPaletteUtil.textFieldBackground(context),
                 filled: true,
                 isDense: true,
                 prefixIconConstraints: BoxConstraints(
                     minWidth: 34, maxHeight: CupertinoStyle.textFieldIconSize),
                 prefixIcon: Icon(CupertinoIcons.search,
                     size: CupertinoStyle.textFieldIconSize),
-                prefixIconColor: CupertinoUtil.textFieldIconColor(context),
+                prefixIconColor: CupertinoPaletteUtil.textFieldIconColor(context),
                 suffixIconConstraints: BoxConstraints(
                     maxWidth: 34, maxHeight: CupertinoStyle.textFieldIconSize),
                 suffixIcon: textEditingController.text.isNotEmpty
@@ -108,7 +108,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
                         child: Icon(
                           CupertinoIcons.clear_circled_solid,
                           size: CupertinoStyle.textFieldIconSize,
-                          color: CupertinoUtil.textFieldIconColor(context),
+                          color: CupertinoPaletteUtil.textFieldIconColor(context),
                         ),
                         onPressed: () {
                           textEditingController.clear();
@@ -131,14 +131,14 @@ class _AnythingPickerState extends State<AnythingPicker> {
                 hintText: widget.hintText,
                 hintStyle: TextStyle(
                   fontSize: CupertinoStyle.textFieldTextSize,
-                  color: CupertinoUtil.textFieldIconColor(context),
+                  color: CupertinoPaletteUtil.textFieldIconColor(context),
                 ),
               ),
               onChanged: (value) {
                 _search(value);
               },
               style: TextStyle(
-                color: CupertinoUtil.text(context),
+                color: CupertinoPaletteUtil.text(context),
                 fontSize: CupertinoStyle.textFieldTextSize,
               ),
               cursorHeight: 22,
@@ -148,7 +148,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
             Divider(
               height: 0,
               thickness: 0,
-              color: CupertinoColors.systemGrey,
+              color: CupertinoPaletteUtil.appBarDivider(context),
             ),
           Expanded(
             child: AzListView(
@@ -175,13 +175,13 @@ class _AnythingPickerState extends State<AnythingPicker> {
                 indexHintTextStyle: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: CupertinoUtil.indexHintText(context),
+                  color: CupertinoPaletteUtil.indexHintText(context),
                 ),
                 indexHintDecoration: BoxDecoration(
-                    color: CupertinoUtil.indexHintColor(context),
+                    color: CupertinoPaletteUtil.indexHintColor(context),
                     borderRadius: BorderRadius.circular(CupertinoStyle.radius)),
                 textStyle: TextStyle(
-                  color: CupertinoUtil.primary(context),
+                  color: CupertinoPaletteUtil.primary(context),
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                   height: 1,
@@ -192,14 +192,14 @@ class _AnythingPickerState extends State<AnythingPicker> {
           ),
         ],
       ),
-      backgroundColor: CupertinoUtil.background(context),
+      backgroundColor: CupertinoPaletteUtil.background(context),
       resizeToAvoidBottomInset: false,
     );
   }
 
   Color get appBarBackground => isScrolled
-      ? CupertinoUtil.scrolledAppBarColor(context)
-      : CupertinoUtil.background(context);
+      ? CupertinoPaletteUtil.scrolledAppBarColor(context)
+      : CupertinoPaletteUtil.background(context);
 
   Widget _itemBuilder(BuildContext context, int index) {
     final Anything data = dataList[index];
@@ -224,7 +224,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: CupertinoStyle.padding),
       child: Material(
-        color: CupertinoUtil.itemColor(context),
+        color: CupertinoPaletteUtil.itemColor(context),
         borderRadius: borderRadius,
         child: Column(
           children: [
@@ -252,7 +252,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
                                   data.text,
                                   style: TextStyle(
                                       fontSize: 16,
-                                      color: CupertinoUtil.text(context),
+                                      color: CupertinoPaletteUtil.text(context),
                                       height: 1),
                                 ),
                                 if (data.subtext != null)
@@ -260,7 +260,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
                                     data.subtext!,
                                     style: TextStyle(
                                         fontSize: 12,
-                                        color: CupertinoUtil.text(context),
+                                        color: CupertinoPaletteUtil.text(context),
                                         height: 1),
                                   ),
                               ],
@@ -268,7 +268,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
                             if (isSelected)
                               Icon(
                                 CupertinoIcons.check_mark,
-                                color: CupertinoUtil.primary(context),
+                                color: CupertinoPaletteUtil.primary(context),
                               )
                           ],
                         ),

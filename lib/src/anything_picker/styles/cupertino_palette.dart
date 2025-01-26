@@ -7,6 +7,7 @@ abstract class CupertinoPalette {
 
   static const Color background = Color(0xfff2f2f6);
   static const Color scrolledAppBarColor = Color(0xfffafafd);
+  static const Color appBarDivider =  Color(0xffadaead);
   static const Color textFieldBackground = Color(0xffe3e3e8);
   static const Color textFieldIconColor = Color(0xff828186);
 
@@ -25,6 +26,7 @@ abstract class CupertinoDarkPalette {
 
   static const Color background = Color(0xff1c1c1e);
   static const Color scrolledAppBarColor = Color(0xff282928);
+  static const Color appBarDivider = Color(0xff4c4c4d);
   static const Color textFieldBackground = Color(0xff3b3c3e);
   static const Color textFieldIconColor = Color(0xffa5a6ac);
 
@@ -37,7 +39,7 @@ abstract class CupertinoDarkPalette {
   static Color indexHintText = Colors.black;
 }
 
-abstract class CupertinoUtil {
+abstract class CupertinoPaletteUtil {
   static bool _isDark(context) =>
       Theme.of(context).brightness == Brightness.dark;
 
@@ -70,6 +72,14 @@ abstract class CupertinoUtil {
       return CupertinoDarkPalette.scrolledAppBarColor;
     } else {
       return CupertinoPalette.scrolledAppBarColor;
+    }
+  }
+
+  static Color appBarDivider(context) {
+    if (_isDark(context)) {
+      return CupertinoDarkPalette.appBarDivider;
+    } else {
+      return CupertinoPalette.appBarDivider;
     }
   }
 
