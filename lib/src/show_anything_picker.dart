@@ -14,6 +14,7 @@ Future showAnythingPicker(
   List<String>? indexBarData,
   String? selectedCode,
   bool? isSortBySubtext,
+  double? itemHeight,
   String Function(String)? tagIndexMapper,
   Widget Function(BuildContext context, Anything data, bool isSelected)?
       customItemBuilder,
@@ -27,7 +28,8 @@ Future showAnythingPicker(
         ModalScrollController.of(context)!,
         title: title,
         hintText: hintText,
-        dataList: dataList, 
+        dataList: dataList,
+        itemHeight: itemHeight,
         indexBarData: indexBarData,
         selectedCode: selectedCode,
         favoriteCodes: favoriteCodes,

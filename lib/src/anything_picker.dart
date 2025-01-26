@@ -31,7 +31,7 @@ class AnythingPicker extends StatefulWidget {
     this.stickyHeader = false,
     this.selectedCode,
     this.customItemBuilder,
-    this.itemHeight = CupertinoStyle.itemHeight,
+    double? itemHeight,
     bool? isSortBySubtext,
     List<String>? favoriteCodes,
     List<String>? indexBarData,
@@ -40,7 +40,8 @@ class AnythingPicker extends StatefulWidget {
   })  : tagIndexMapper = tagIndexMapper ?? AnythingPickerUtil.getEnglishInitial,
         favoriteCodes = favoriteCodes ?? const [],
         indexBarData = indexBarData ?? indexBarEnglishData,
-        isSortBySubtext = isSortBySubtext ?? false;
+        isSortBySubtext = isSortBySubtext ?? false,
+        itemHeight = itemHeight ?? CupertinoStyle.itemHeight;
 
   @override
   State<AnythingPicker> createState() => _AnythingPickerState();
