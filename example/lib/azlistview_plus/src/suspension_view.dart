@@ -12,6 +12,7 @@ class SuspensionView extends StatefulWidget {
     required this.data,
     required this.itemCount,
     required this.itemBuilder,
+    required this.stickyHeader,
     this.itemScrollController,
     this.itemPositionsListener,
     this.susItemBuilder,
@@ -56,6 +57,8 @@ class SuspensionView extends StatefulWidget {
 
   /// The amount of space by which to inset the children.
   final EdgeInsets? padding;
+
+  final bool stickyHeader;
 
   @override
   createState() => _SuspensionViewState();
@@ -158,7 +161,7 @@ class _SuspensionViewState extends State<SuspensionView> {
                 physics: widget.physics,
                 padding: widget.padding,
               ),
-        _buildSusWidget(context),
+        if (widget.stickyHeader) _buildSusWidget(context),
       ],
     );
   }

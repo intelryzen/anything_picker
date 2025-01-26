@@ -1,11 +1,16 @@
-import 'package:example/anything_picker.dart';
+import 'package:example/anything_picker2.dart';
 import 'package:example/example_page.dart';
-import 'package:example/test.dart';
+import 'package:example/anything_data.dart';
+import 'package:example/anything_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:language_info_plus/language_info_plus.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await initializeLanguage();
   runApp(const MyApp());
 }
 

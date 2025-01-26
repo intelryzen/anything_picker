@@ -18,6 +18,8 @@ class AzListView extends StatefulWidget {
     this.physics,
     this.padding,
     this.susItemBuilder,
+    this.itemHeight = Style.itemHeight,
+    this.stickyHeader = true,
     this.susItemHeight = kSusItemHeight,
     this.susPosition,
     this.indexHintBuilder,
@@ -94,6 +96,12 @@ class AzListView extends StatefulWidget {
   /// IndexBar options.
   final IndexBarOptions indexBarOptions;
 
+  /// Sticky Header
+  final bool stickyHeader;
+
+  /// Item Height.
+  final double itemHeight;
+
   @override
   createState() => _AzListViewState();
 }
@@ -108,6 +116,12 @@ class _AzListViewState extends State<AzListView> {
   IndexBarDragListener dragListener = IndexBarDragListener.create();
 
   final IndexBarController indexBarController = IndexBarController();
+
+  // 중복 없는 tagIndex 리스트 생성
+  late List<String> dataTags = widget.data
+      .map((e) => e.getSuspensionTag())
+      .toSet()
+      .toList();
 
   String selectTag = '';
 
@@ -146,9 +160,9 @@ class _AzListViewState extends State<AzListView> {
   void _scrollTopIndex(String tag) {
     int index = _getIndex(tag);
     if (index != -1) {
-      int tagIndex = widget.indexBarData.indexOf(tag);
+      int tagIndex = dataTags.indexOf(tag);
       itemScrollController.scrollController
-          ?.jumpTo(index * Style.itemHeight + tagIndex * widget.susItemHeight);
+          ?.jumpTo(index * widget.itemHeight + tagIndex * widget.susItemHeight);
       // itemScrollController.jumpTo(index: index);
     }
   }
@@ -197,6 +211,7 @@ class _AzListViewState extends State<AzListView> {
           susPosition: widget.susPosition,
           padding: widget.padding,
           physics: widget.physics,
+          stickyHeader: widget.stickyHeader,
         ),
         Align(
           alignment: widget.indexBarAlignment,

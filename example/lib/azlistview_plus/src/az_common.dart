@@ -12,7 +12,11 @@ class SuspensionUtil {
   static void sortListBySuspensionTag(List<ISuspensionBean>? list) {
     if (list == null || list.isEmpty) return;
     list.sort((a, b) {
-      if (a.getSuspensionTag() == "@" || b.getSuspensionTag() == "#") {
+      if (a.getSuspensionTag() == "☆") {
+        return -1; // `a`가 `☆`이면 항상 앞쪽
+      } else if (b.getSuspensionTag() == "☆") {
+        return 1; // `b`가 `☆`이면 항상 뒤쪽
+      } else if (a.getSuspensionTag() == "@" || b.getSuspensionTag() == "#") {
         return -1;
       } else if (a.getSuspensionTag() == "#" || b.getSuspensionTag() == "@") {
         return 1;

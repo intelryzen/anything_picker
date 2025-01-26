@@ -41,6 +41,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.0"
+  common_utils:
+    dependency: "direct main"
+    description:
+      name: common_utils
+      sha256: c26884339b13ff99b0739e56f4b02090c84054ed9dd3a045435cd24e7b99c2c1
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  convert:
+    dependency: transitive
+    description:
+      name: convert
+      sha256: b30acd5944035672bc15c6b7a8b47d773e41e2f17de064350988c5d02adb1c68
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.2"
+  crypto:
+    dependency: transitive
+    description:
+      name: crypto
+      sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.6"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -49,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  decimal:
+    dependency: transitive
+    description:
+      name: decimal
+      sha256: "28239b8b929c1bd8618702e6dbc96e2618cf99770bbe9cb040d6cf56a11e4ec3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.1"
   fake_async:
     dependency: transitive
     description:
@@ -75,6 +107,30 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gaimon:
+    dependency: "direct main"
+    description:
+      name: gaimon
+      sha256: "4194b979dc84b2c5135dba261a0a1f810e4dff25a87bcb53cca53fb585438307"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.2"
+  language_info_plus:
+    dependency: "direct main"
+    description:
+      name: language_info_plus
+      sha256: "3f368eeb5513c3e73f5a217ac1433079c2221aab5129c7f594fa9d2c9a798d19"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -147,6 +203,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.0"
+  rational:
+    dependency: transitive
+    description:
+      name: rational
+      sha256: cb808fb6f1a839e6fc5f7d8cb3b0a10e1db48b3be102de73938c627f0b636336
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -200,6 +264,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.3"
+  typed_data:
+    dependency: transitive
+    description:
+      name: typed_data
+      sha256: f9049c039ebfeb4cf7a7104a675823cd72dba8297f264b6637062516699fa006
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   vector_math:
     dependency: transitive
     description:
