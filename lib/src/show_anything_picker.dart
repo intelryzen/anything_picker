@@ -2,6 +2,7 @@ import 'package:anything_picker/src/anything_picker.dart';
 import 'package:anything_picker/src/anything_picker/model/anything.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 Future showAnythingPicker(
@@ -12,6 +13,7 @@ Future showAnythingPicker(
   List<String>? favoriteCodes,
   List<String>? indexBarData,
   String? selectedCode,
+  bool? isSortBySubtext,
   String Function(String)? tagIndexMapper,
 }) async {
   if (defaultTargetPlatform == TargetPlatform.iOS) {
@@ -19,6 +21,10 @@ Future showAnythingPicker(
       expand: true,
       context: context,
       backgroundColor: Colors.transparent,
+      overlayStyle: SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+      ),
       builder: (context) => AnythingPicker(
         ModalScrollController.of(context)!,
         title: title,
@@ -28,6 +34,7 @@ Future showAnythingPicker(
         selectedCode: selectedCode,
         favoriteCodes: favoriteCodes,
         tagIndexMapper: tagIndexMapper,
+        isSortBySubtext: isSortBySubtext,
       ),
     );
   } else {
