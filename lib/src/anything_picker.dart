@@ -254,7 +254,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
                                 ),
                                 if (data.subtext != null)
                                   Text(
-                                    data.text,
+                                    data.subtext,
                                     style: TextStyle(
                                         fontSize: 12,
                                         color: CupertinoUtil.text(context),
