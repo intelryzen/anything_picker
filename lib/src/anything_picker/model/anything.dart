@@ -9,8 +9,9 @@ class Anything extends ISuspensionBean {
   final String code;
   final String text;
   final String? subtext;
+  final dynamic extra; /// 당신이 넣고 싶은 데이터
 
-  Anything(this.code, this.text, {this.subtext});
+  Anything(this.code, this.text, {this.subtext, this.extra});
 
   @override
   String getSuspensionTag() => tagIndex!;
