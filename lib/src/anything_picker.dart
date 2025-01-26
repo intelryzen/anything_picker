@@ -229,18 +229,18 @@ class _AnythingPickerState extends State<AnythingPicker> {
         child: Column(
           children: [
             Expanded(
-              child: widget.customItemBuilder != null
-                  ? widget.customItemBuilder!(context, data, isSelected)
-                  : InkWell(
-                      onTap: () {
-                        Navigator.pop(context, data.code);
-                      },
-                      borderRadius: borderRadius,
-                      splashColor: Colors.transparent,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: CupertinoStyle.padding),
-                        child: Row(
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context, data.code);
+                },
+                borderRadius: borderRadius,
+                splashColor: Colors.transparent,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: CupertinoStyle.padding),
+                  child: widget.customItemBuilder != null
+                      ? widget.customItemBuilder!(context, data, isSelected)
+                      : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
@@ -272,8 +272,8 @@ class _AnythingPickerState extends State<AnythingPicker> {
                               )
                           ],
                         ),
-                      ),
-                    ),
+                ),
+              ),
             ),
             if (index != dataList.length - 1 &&
                 data.getSuspensionTag() ==
