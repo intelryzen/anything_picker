@@ -9,7 +9,9 @@ class Anything extends ISuspensionBean {
   final String code;
   final String text;
   final String? subtext;
-  final dynamic extra; /// 당신이 넣고 싶은 데이터
+  final dynamic extra;
+
+  /// 당신이 넣고 싶은 데이터
 
   Anything(this.code, this.text, {this.subtext, this.extra});
 
@@ -25,17 +27,20 @@ class Anything extends ISuspensionBean {
         'code': code,
         'text': text,
         'subtext': subtext,
+        'extra': extra,
       };
 
   Anything copyWith({
     String? code,
     String? text,
     String? subtext,
+    dynamic extra,
   }) {
     return Anything(
       code ?? this.code,
       text ?? this.text,
-      subtext: this.subtext,
+      subtext: subtext ?? this.subtext,
+      extra: extra ?? this.extra,
     );
   }
 }
