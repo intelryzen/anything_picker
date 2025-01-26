@@ -1,4 +1,4 @@
-import 'package:example/scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:anything_picker/src/scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'az_common.dart';

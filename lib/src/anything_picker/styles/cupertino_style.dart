@@ -1,6 +1,4 @@
-abstract class Style {
-
-
+abstract class CupertinoStyle {
   static const double susHeight = 56;
   static const double padding = 18;
   static const double itemHeight = 57;

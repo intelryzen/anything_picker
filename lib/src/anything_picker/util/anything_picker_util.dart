@@ -1,7 +1,7 @@
-import 'package:example/anything_const.dart';
 
-abstract class InitialConsonantUtil {
+import 'package:anything_picker/src/anything_picker/const/anything_picker_const.dart';
 
+abstract class AnythingPickerUtil {
   static String getEnglishInitial(String text) {
     if (text.isEmpty) {
       return "#";

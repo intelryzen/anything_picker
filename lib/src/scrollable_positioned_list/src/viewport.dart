@@ -1,5 +1,5 @@
 // Copyright 2019 The Fuchsia Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
+// Use of this source code is governed by a BSD-styles license that can be
 // found in the LICENSE file.
 
 import 'dart:math' as math;
@@ -90,7 +90,7 @@ class UnboundedRenderViewport extends RenderViewport {
 
   /// This value is set during layout based on the [CacheExtentStyle].
   ///
-  /// When the style is [CacheExtentStyle.viewport], it is the main axis extent
+  /// When the styles is [CacheExtentStyle.viewport], it is the main axis extent
   /// of the viewport multiplied by the requested cache extent, which is still
   /// expressed in pixels.
   double? _calculatedCacheExtent;

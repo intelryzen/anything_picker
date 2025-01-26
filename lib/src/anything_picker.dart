@@ -1,16 +1,15 @@
+import 'package:anything_picker/src/anything_picker/const/anything_picker_const.dart';
+import 'package:anything_picker/src/anything_picker/model/anything.dart';
+import 'package:anything_picker/src/anything_picker/styles/styles.dart';
+import 'package:anything_picker/src/anything_picker/util/anything_picker_util.dart';
+import 'package:anything_picker/src/azlistview_plus/azlistview_plus.dart';
+import 'package:anything_picker/src/scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:common_utils/common_utils.dart';
-import 'package:example/anything_const.dart';
-import 'package:example/azlistview_plus/azlistview_plus.dart';
-import 'package:example/initial_consonant_util.dart';
-import 'package:example/palette.dart';
-import 'package:example/scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:example/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:example/anything_data.dart';
 
 class AnythingPicker extends StatefulWidget {
-  final List<AnythingData> dataList;
+  final List<Anything> dataList;
   final bool stickyHeader;
   final ScrollController scrollController;
   final String title;
@@ -18,8 +17,7 @@ class AnythingPicker extends StatefulWidget {
   final List<String> indexBarData;
   final List<String> favoriteCodes;
   final String Function(String) tagIndexMapper;
-  final Widget Function(
-          BuildContext context, AnythingData data, bool isSelected)?
+  final Widget Function(BuildContext context, Anything data, bool isSelected)?
       customItemBuilder;
   final String? selectedCode;
   final double itemHeight;
@@ -31,29 +29,29 @@ class AnythingPicker extends StatefulWidget {
     required this.title,
     required this.hintText,
     this.stickyHeader = false,
-    this.tagIndexMapper = InitialConsonantUtil.getEnglishInitial,
     this.indexBarData = indexBarEnglishData,
-    this.favoriteCodes = const [],
     this.selectedCode,
     this.customItemBuilder,
-    this.itemHeight = Style.itemHeight,
+    this.itemHeight = CupertinoStyle.itemHeight,
     this.isSortBySubtext = false,
+    List<String>? favoriteCodes,
+    String Function(String)? tagIndexMapper,
     super.key,
-  });
+  })  : tagIndexMapper = tagIndexMapper ?? AnythingPickerUtil.getEnglishInitial,
+        favoriteCodes = favoriteCodes ?? const [];
 
   @override
   State<AnythingPicker> createState() => _AnythingPickerState();
 }
 
 class _AnythingPickerState extends State<AnythingPicker> {
-  List<AnythingData> originList = [];
-  List<AnythingData> dataList = [];
+  List<Anything> originList = [];
+  List<Anything> dataList = [];
 
   final textEditingController = TextEditingController();
   late final ItemScrollController itemScrollController =
       ItemScrollController(scrollController: widget.scrollController);
   late List<String> indexBarData = widget.indexBarData;
-
   bool isScrolled = false;
 
   @override
@@ -69,6 +67,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
           widget.title,
           style: TextStyle(
             fontSize: 17,
+            color: CupertinoUtil.text(context),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -79,8 +78,8 @@ class _AnythingPickerState extends State<AnythingPicker> {
           Container(
             color: appBarBackground,
             padding: const EdgeInsets.only(
-              left: Style.padding,
-              right: Style.padding,
+              left: CupertinoStyle.padding,
+              right: CupertinoStyle.padding,
               bottom: 15,
             ),
             child: TextField(
@@ -90,23 +89,23 @@ class _AnythingPickerState extends State<AnythingPicker> {
                   horizontal: 20,
                   vertical: 5,
                 ),
-                fillColor: Palette.textFieldBackground,
+                fillColor: CupertinoUtil.textFieldBackground(context),
                 filled: true,
                 isDense: true,
                 prefixIconConstraints: BoxConstraints(
-                    minWidth: 34, maxHeight: Style.textFieldIconSize),
-                prefixIcon:
-                    Icon(CupertinoIcons.search, size: Style.textFieldIconSize),
-                prefixIconColor: Palette.textFieldIconColor,
+                    minWidth: 34, maxHeight: CupertinoStyle.textFieldIconSize),
+                prefixIcon: Icon(CupertinoIcons.search,
+                    size: CupertinoStyle.textFieldIconSize),
+                prefixIconColor: CupertinoUtil.textFieldIconColor(context),
                 suffixIconConstraints: BoxConstraints(
-                    maxWidth: 34, maxHeight: Style.textFieldIconSize),
+                    maxWidth: 34, maxHeight: CupertinoStyle.textFieldIconSize),
                 suffixIcon: textEditingController.text.isNotEmpty
                     ? CupertinoButton(
                         padding: EdgeInsets.zero,
                         child: Icon(
-                          CupertinoIcons.clear,
-                          size: Style.textFieldIconSize,
-                          color: Palette.textFieldIconColor,
+                          CupertinoIcons.clear_circled_solid,
+                          size: CupertinoStyle.textFieldIconSize,
+                          color: CupertinoUtil.textFieldIconColor(context),
                         ),
                         onPressed: () {
                           textEditingController.clear();
@@ -116,25 +115,29 @@ class _AnythingPickerState extends State<AnythingPicker> {
                     : null,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(Style.radius),
+                  borderRadius: BorderRadius.circular(CupertinoStyle.radius),
                 ),
                 border: OutlineInputBorder(
                   borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(Style.radius),
+                  borderRadius: BorderRadius.circular(CupertinoStyle.radius),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(Style.radius),
+                  borderRadius: BorderRadius.circular(CupertinoStyle.radius),
                 ),
                 hintText: widget.hintText,
                 hintStyle: TextStyle(
-                    fontSize: Style.textFieldTextSize,
-                    color: Palette.textFieldIconColor),
+                  fontSize: CupertinoStyle.textFieldTextSize,
+                  color: CupertinoUtil.textFieldIconColor(context),
+                ),
               ),
               onChanged: (value) {
                 _search(value);
               },
-              style: TextStyle(fontSize: Style.textFieldTextSize),
+              style: TextStyle(
+                color: CupertinoUtil.text(context),
+                fontSize: CupertinoStyle.textFieldTextSize,
+              ),
               cursorHeight: 22,
             ),
           ),
@@ -156,41 +159,47 @@ class _AnythingPickerState extends State<AnythingPicker> {
               itemScrollController: itemScrollController,
               susItemBuilder: (BuildContext context, int index) {
                 final model = dataList[index];
-                return getSusItem(context, model.getSuspensionTag());
+                return _getSusItem(context, model.getSuspensionTag());
               },
-              susItemHeight: Style.susHeight,
+              susItemHeight: CupertinoStyle.susHeight,
               itemHeight: widget.itemHeight,
-              indexBarItemHeight: Style.indexBarItemHeight,
-              indexBarWidth: Style.indexBarWidth,
+              indexBarItemHeight: CupertinoStyle.indexBarItemHeight,
+              indexBarWidth: CupertinoStyle.indexBarWidth,
               indexBarOptions: IndexBarOptions(
                 hapticFeedback: true,
                 needRebuild: true,
                 indexHintOffset: Offset(0, 0),
+                indexHintTextStyle: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: CupertinoUtil.indexHintText(context),
+                ),
                 indexHintDecoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: .7),
-                    borderRadius: BorderRadius.circular(Style.radius)),
+                    color: CupertinoUtil.indexHintColor(context),
+                    borderRadius: BorderRadius.circular(CupertinoStyle.radius)),
                 textStyle: TextStyle(
-                  color: CupertinoColors.systemBlue,
+                  color: CupertinoUtil.primary(context),
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                   height: 1,
                 ),
               ),
-              itemBuilder: itemBuilder,
+              itemBuilder: _itemBuilder,
             ),
           ),
         ],
       ),
-      backgroundColor: Palette.background,
+      backgroundColor: CupertinoUtil.background(context),
       resizeToAvoidBottomInset: false,
     );
   }
 
-  Color get appBarBackground =>
-      isScrolled ? Palette.scrolledAppBarColor : Palette.background;
+  Color get appBarBackground => isScrolled
+      ? CupertinoUtil.scrolledAppBarColor(context)
+      : CupertinoUtil.background(context);
 
-  Widget itemBuilder(BuildContext context, int index) {
-    final AnythingData data = dataList[index];
+  Widget _itemBuilder(BuildContext context, int index) {
+    final Anything data = dataList[index];
     final bool isSelected = widget.selectedCode == data.code;
 
     final firstIndex = dataList.indexWhere((e) => e.tagIndex == data.tagIndex);
@@ -200,18 +209,19 @@ class _AnythingPickerState extends State<AnythingPicker> {
     final bool isLast = lastIndex == index;
 
     final borderRadius = BorderRadius.only(
-      topLeft: isFirst ? Radius.circular(Style.radius) : Radius.zero,
-      topRight: isFirst ? Radius.circular(Style.radius) : Radius.zero,
-      bottomLeft: isLast ? Radius.circular(Style.radius) : Radius.zero,
-      bottomRight: isLast ? Radius.circular(Style.radius) : Radius.zero,
+      topLeft: isFirst ? Radius.circular(CupertinoStyle.radius) : Radius.zero,
+      topRight: isFirst ? Radius.circular(CupertinoStyle.radius) : Radius.zero,
+      bottomLeft: isLast ? Radius.circular(CupertinoStyle.radius) : Radius.zero,
+      bottomRight:
+          isLast ? Radius.circular(CupertinoStyle.radius) : Radius.zero,
     );
 
     return Container(
       height: widget.itemHeight,
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: Style.padding),
+      padding: const EdgeInsets.symmetric(horizontal: CupertinoStyle.padding),
       child: Material(
-        color: Palette.white,
+        color: CupertinoUtil.itemColor(context),
         borderRadius: borderRadius,
         child: Column(
           children: [
@@ -226,7 +236,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
                       splashColor: Colors.transparent,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: Style.padding),
+                            horizontal: CupertinoStyle.padding),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -237,19 +247,25 @@ class _AnythingPickerState extends State<AnythingPicker> {
                               children: [
                                 Text(
                                   data.text,
-                                  style: TextStyle(fontSize: 16, height: 1),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: CupertinoUtil.text(context),
+                                      height: 1),
                                 ),
                                 if (data.subtext != null)
                                   Text(
                                     data.text,
-                                    style: TextStyle(fontSize: 12, height: 1),
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: CupertinoUtil.text(context),
+                                        height: 1),
                                   ),
                               ],
                             ),
                             if (isSelected)
                               Icon(
                                 CupertinoIcons.check_mark,
-                                color: CupertinoColors.systemBlue,
+                                color: CupertinoUtil.primary(context),
                               )
                           ],
                         ),
@@ -259,30 +275,34 @@ class _AnythingPickerState extends State<AnythingPicker> {
             if (index != dataList.length - 1 &&
                 data.getSuspensionTag() ==
                     dataList[index + 1].getSuspensionTag())
-              Divider(
-                height: 1,
-                thickness: 0,
-                color: Palette.dividerColor,
-              )
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: CupertinoStyle.padding),
+                child: Divider(
+                  height: 1,
+                  thickness: 0,
+                  color: CupertinoPalette.dividerColor,
+                ),
+              ),
           ],
         ),
       ),
     );
   }
 
-  Widget getSusItem(BuildContext context, String tag,
-      {double susHeight = Style.susHeight}) {
+  Widget _getSusItem(BuildContext context, String tag,
+      {double susHeight = CupertinoStyle.susHeight}) {
     return Container(
       height: susHeight,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(left: Style.padding * 2, bottom: 6),
+      padding: EdgeInsets.only(left: CupertinoStyle.padding * 2, bottom: 6),
       alignment: Alignment.bottomLeft,
       child: Text(
         tag,
         softWrap: false,
         style: TextStyle(
           fontSize: 14.0,
-          color: Palette.susTextColor,
+          color: CupertinoPalette.susTextColor,
         ),
       ),
     );
@@ -300,7 +320,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
     }
   }
 
-  void _handleList(List<AnythingData> list) {
+  void _handleList(List<Anything> list) {
     dataList.clear();
 
     if (ObjectUtil.isEmpty(list)) {
@@ -388,7 +408,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
 
 // actions: [
 //   Padding(
-//     padding: const EdgeInsets.only(right: Style.padding),
+//     padding: const EdgeInsets.only(right: CupertinoStyle.padding),
 //     child: SizedBox(
 //       height: 30,
 //       width: 30,

@@ -1,7 +1,7 @@
-import 'package:example/scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:example/style.dart';
+import 'package:anything_picker/src/scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 
+import '../../anything_picker/styles/styles.dart';
 import 'az_common.dart';
 import 'index_bar.dart';
 import 'suspension_view.dart';
@@ -18,7 +18,7 @@ class AzListView extends StatefulWidget {
     this.physics,
     this.padding,
     this.susItemBuilder,
-    this.itemHeight = Style.itemHeight,
+    this.itemHeight = CupertinoStyle.itemHeight,
     this.stickyHeader = true,
     this.susItemHeight = kSusItemHeight,
     this.susPosition,

@@ -477,7 +477,7 @@ class BaseIndexBar extends StatefulWidget {
   /// Haptic feedback.
   final bool hapticFeedback;
 
-  /// IndexBar text style.
+  /// IndexBar text styles.
   final TextStyle textStyle;
 
   final IndexedWidgetBuilder? itemBuilder;
