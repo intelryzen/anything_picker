@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:example/azlistview_plus/azlistview_plus.dart';
+import 'package:anything_picker/src/azlistview_plus/azlistview_plus.dart';
 
-class AnythingData extends ISuspensionBean {
+class Anything extends ISuspensionBean {
   String? tagIndex;
   String? pinyin;
   String? shortPinyin;
@@ -10,7 +10,7 @@ class AnythingData extends ISuspensionBean {
   final String text;
   final String? subtext;
 
-  AnythingData(this.code, this.text, {this.subtext});
+  Anything(this.code, this.text, {this.subtext});
 
   @override
   String getSuspensionTag() => tagIndex!;
@@ -26,12 +26,12 @@ class AnythingData extends ISuspensionBean {
         'subtext': subtext,
       };
 
-  AnythingData copyWith({
+  Anything copyWith({
     String? code,
     String? text,
     String? subtext,
   }) {
-    return AnythingData(
+    return Anything(
       code ?? this.code,
       text ?? this.text,
       subtext: this.subtext,

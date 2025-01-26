@@ -160,7 +160,7 @@ class CustomRenderShrinkWrappingViewport extends CustomRenderViewport {
 
   /// This value is set during layout based on the [CacheExtentStyle].
   ///
-  /// When the style is [CacheExtentStyle.viewport], it is the main axis extent
+  /// When the styles is [CacheExtentStyle.viewport], it is the main axis extent
   /// of the viewport multiplied by the requested cache extent, which is still
   /// expressed in pixels.
   double? _calculatedCacheExtent;

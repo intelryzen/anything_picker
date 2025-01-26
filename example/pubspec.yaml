@@ -30,18 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  gaimon: ^1.4.0
-
   # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  modal_bottom_sheet: ^3.0.0
-  world_info_plus: ^1.0.0+3
-  language_info_plus:
-  common_utils:
+  # Use with the CupertinoIcons class for iOS styles icons.
 
-#  anything_picker:
-#    path: ../
+  anything_picker:
+    path: ../
 
 dev_dependencies:
   flutter_test:
@@ -86,7 +79,7 @@ flutter:
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  #         styles: italic
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
