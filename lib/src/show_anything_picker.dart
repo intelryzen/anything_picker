@@ -17,14 +17,14 @@ Future showAnythingPicker(
   String Function(String)? tagIndexMapper,
 }) async {
   if (defaultTargetPlatform == TargetPlatform.iOS) {
-    return await showCupertinoModalBottomSheet(
+    return await CupertinoScaffold.showCupertinoModalBottomSheet(
       expand: true,
       context: context,
       backgroundColor: Colors.transparent,
-      overlayStyle: SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-      ),
+      // overlayStyle: SystemUiOverlayStyle(
+      //   statusBarBrightness: Brightness.dark,
+      //   statusBarIconBrightness: Brightness.dark,
+      // ),
       builder: (context) => AnythingPicker(
         ModalScrollController.of(context)!,
         title: title,
