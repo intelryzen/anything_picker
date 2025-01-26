@@ -128,5 +128,4 @@ abstract class CupertinoUtil {
       return CupertinoPalette.indexHintText;
     }
   }
-
 }
