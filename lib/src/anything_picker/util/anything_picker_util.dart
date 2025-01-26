@@ -43,6 +43,8 @@ abstract class AnythingPickerUtil {
       if (codeUnit >= 0xAC00 && codeUnit <= 0xD7A3) {
         // 초성 계산 공식
         int index = ((codeUnit - 0xAC00) ~/ 28) ~/ 21;
+        print(index);
+        print(text);
         String initial = indexBarKoreanData[index];
 
         // 쌍자음을 단일 자음으로 변환

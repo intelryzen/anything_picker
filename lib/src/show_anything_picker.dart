@@ -21,10 +21,6 @@ Future showAnythingPicker(
       expand: true,
       context: context,
       backgroundColor: Colors.transparent,
-      // overlayStyle: SystemUiOverlayStyle(
-      //   statusBarBrightness: Brightness.dark,
-      //   statusBarIconBrightness: Brightness.dark,
-      // ),
       builder: (context) => AnythingPicker(
         ModalScrollController.of(context)!,
         title: title,
