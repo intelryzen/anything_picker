@@ -379,8 +379,9 @@ class _AnythingPickerState extends State<AnythingPicker> {
 
     for (String code in widget.favoriteCodes.reversed) {
       try {
-        final data = originList.firstWhere((e) => e.code == code).copyWith();
-        data.tagIndex = "☆";
+        final data = originList
+            .firstWhere((e) => e.code == code)
+            .copyWith(tagIndex: "☆");
         originList.insert(0, data);
         existsFavorites = true;
       } catch (_) {}

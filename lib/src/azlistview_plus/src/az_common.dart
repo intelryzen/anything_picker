@@ -34,7 +34,7 @@ class SuspensionUtil {
       }
     });
   }
-  
+
   /// get index data list by suspension tag.
   /// 获取索引列表。
   static List<String> getTagIndexList(List<ISuspensionBean>? list) {
