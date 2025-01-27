@@ -3,6 +3,7 @@ import 'package:anything_picker/src/anything_picker/model/anything.dart';
 import 'package:anything_picker/src/anything_picker/styles/styles.dart';
 import 'package:anything_picker/src/anything_picker/util/anything_picker_util.dart';
 import 'package:anything_picker/src/azlistview_plus/azlistview_plus.dart';
+import 'package:anything_picker/src/bottom_modal_scroll_physics.dart';
 import 'package:anything_picker/src/scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -99,7 +100,8 @@ class _AnythingPickerState extends State<AnythingPicker> {
                     minWidth: 34, maxHeight: CupertinoStyle.textFieldIconSize),
                 prefixIcon: Icon(CupertinoIcons.search,
                     size: CupertinoStyle.textFieldIconSize),
-                prefixIconColor: CupertinoPaletteUtil.textFieldIconColor(context),
+                prefixIconColor:
+                    CupertinoPaletteUtil.textFieldIconColor(context),
                 suffixIconConstraints: BoxConstraints(
                     maxWidth: 34, maxHeight: CupertinoStyle.textFieldIconSize),
                 suffixIcon: textEditingController.text.isNotEmpty
@@ -108,7 +110,8 @@ class _AnythingPickerState extends State<AnythingPicker> {
                         child: Icon(
                           CupertinoIcons.clear_circled_solid,
                           size: CupertinoStyle.textFieldIconSize,
-                          color: CupertinoPaletteUtil.textFieldIconColor(context),
+                          color:
+                              CupertinoPaletteUtil.textFieldIconColor(context),
                         ),
                         onPressed: () {
                           textEditingController.clear();
@@ -156,7 +159,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
               itemCount: dataList.length,
               stickyHeader: widget.stickyHeader,
               indexBarData: indexBarData,
-              physics: ClampingScrollPhysics(),
+              physics: const BottomModalScrollPhysics(),
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).padding.bottom),
               itemScrollController: itemScrollController,
@@ -242,28 +245,36 @@ class _AnythingPickerState extends State<AnythingPicker> {
                       ? widget.customItemBuilder!(context, data, isSelected)
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          spacing: 4,
                           children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: 3,
-                              children: [
-                                Text(
-                                  data.text,
-                                  style: TextStyle(
+                            Flexible(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 3,
+                                children: [
+                                  Text(
+                                    data.text,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
                                       fontSize: 16,
                                       color: CupertinoPaletteUtil.text(context),
-                                      height: 1),
-                                ),
-                                if (data.subtext != null)
-                                  Text(
-                                    data.subtext!,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: CupertinoPaletteUtil.text(context),
-                                        height: 1),
+                                      height: 1,
+                                    ),
                                   ),
-                              ],
+                                  if (data.subtext != null)
+                                    Text(
+                                      data.subtext!,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color:
+                                            CupertinoPaletteUtil.text(context),
+                                        height: 1,
+                                      ),
+                                    ),
+                                ],
+                              ),
                             ),
                             if (isSelected)
                               Icon(
