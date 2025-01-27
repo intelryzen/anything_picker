@@ -11,9 +11,10 @@ class Anything extends ISuspensionBean {
   final String? subtext;
   final dynamic extra;
 
-  /// 당신이 넣고 싶은 데이터
+  // 정렬 기준
+  final String? sortingKey;
 
-  Anything(this.code, this.text, {this.subtext, this.extra});
+  Anything(this.code, this.text, {this.subtext, this.extra, this.sortingKey});
 
   @override
   String getSuspensionTag() => tagIndex!;
@@ -24,11 +25,11 @@ class Anything extends ISuspensionBean {
   }
 
   Map<String, dynamic> toJson() => {
-    'code': code,
-    'text': text,
-    'subtext': subtext,
-    'extra': extra,
-  };
+        'code': code,
+        'text': text,
+        'subtext': subtext,
+        'extra': extra,
+      };
 
   Anything copyWith({
     String? code,
@@ -44,6 +45,7 @@ class Anything extends ISuspensionBean {
       text ?? this.text,
       subtext: subtext ?? this.subtext,
       extra: extra ?? this.extra,
+      sortingKey: sortingKey,
     );
     anything.tagIndex = tagIndex ?? this.tagIndex;
     anything.pinyin = pinyin ?? this.pinyin;

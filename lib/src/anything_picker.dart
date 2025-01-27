@@ -22,7 +22,6 @@ class AnythingPicker extends StatefulWidget {
       customItemBuilder;
   final String? selectedCode;
   final double itemHeight;
-  final bool isSortBySubtext;
 
   const AnythingPicker(
     this.scrollController, {
@@ -33,7 +32,6 @@ class AnythingPicker extends StatefulWidget {
     this.selectedCode,
     this.customItemBuilder,
     double? itemHeight,
-    bool? isSortBySubtext,
     List<String>? favoriteCodes,
     List<String>? indexBarData,
     String Function(String)? tagIndexMapper,
@@ -41,7 +39,6 @@ class AnythingPicker extends StatefulWidget {
   })  : tagIndexMapper = tagIndexMapper ?? AnythingPickerUtil.getEnglishInitial,
         favoriteCodes = favoriteCodes ?? const [],
         indexBarData = indexBarData ?? indexBarEnglishData,
-        isSortBySubtext = isSortBySubtext ?? false,
         itemHeight = itemHeight ?? CupertinoStyle.itemHeight;
 
   @override
@@ -365,12 +362,7 @@ class _AnythingPickerState extends State<AnythingPicker> {
     bool existsUnsupportedChar = false;
 
     originList = widget.dataList.map((value) {
-      if (widget.isSortBySubtext) {
-        value.tagIndex = widget.tagIndexMapper(value.subtext ?? "");
-      } else {
-        value.tagIndex = widget.tagIndexMapper(value.text);
-      }
-
+      value.tagIndex = widget.tagIndexMapper(value.sortingKey ?? value.text);
       if (value.tagIndex == "#") {
         existsUnsupportedChar = true;
       }

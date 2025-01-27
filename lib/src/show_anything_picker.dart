@@ -13,7 +13,6 @@ Future showAnythingPicker(
   List<String>? favoriteCodes,
   List<String>? indexBarData,
   String? selectedCode,
-  bool? isSortBySubtext,
   double? itemHeight,
   String Function(String)? tagIndexMapper,
   Widget Function(BuildContext context, Anything data, bool isSelected)?
@@ -34,7 +33,6 @@ Future showAnythingPicker(
         selectedCode: selectedCode,
         favoriteCodes: favoriteCodes,
         tagIndexMapper: tagIndexMapper,
-        isSortBySubtext: isSortBySubtext,
         customItemBuilder: customItemBuilder,
       ),
     );
