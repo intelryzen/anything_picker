@@ -11,8 +11,17 @@ class SuspensionUtil {
   /// 根据[A-Z]排序。
   static void sortListBySuspensionTag(List<ISuspensionBean>? list) {
     if (list == null || list.isEmpty) return;
+
+    // 원래 인덱스를 저장
+    final originalIndexMap = {
+      for (int i = 0; i < list.length; i++) list[i]: i
+    };
+
     list.sort((a, b) {
-      if (a.getSuspensionTag() == "☆") {
+      if (a.getSuspensionTag() == "☆" && b.getSuspensionTag() == "☆") {
+        // `☆`를 가진 요소끼리는 기존 순서를 유지
+        return originalIndexMap[a]!.compareTo(originalIndexMap[b]!);
+      } else if (a.getSuspensionTag() == "☆") {
         return -1; // `a`가 `☆`이면 항상 앞쪽
       } else if (b.getSuspensionTag() == "☆") {
         return 1; // `b`가 `☆`이면 항상 뒤쪽
@@ -25,7 +34,7 @@ class SuspensionUtil {
       }
     });
   }
-
+  
   /// get index data list by suspension tag.
   /// 获取索引列表。
   static List<String> getTagIndexList(List<ISuspensionBean>? list) {
