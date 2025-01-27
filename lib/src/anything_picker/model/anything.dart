@@ -24,17 +24,20 @@ class Anything extends ISuspensionBean {
   }
 
   Map<String, dynamic> toJson() => {
-        'code': code,
-        'text': text,
-        'subtext': subtext,
-        'extra': extra,
-      };
+    'code': code,
+    'text': text,
+    'subtext': subtext,
+    'extra': extra,
+  };
 
   Anything copyWith({
     String? code,
     String? text,
     String? subtext,
     dynamic extra,
+    String? tagIndex,
+    String? pinyin,
+    String? shortPinyin,
   }) {
     final anything = Anything(
       code ?? this.code,
@@ -42,9 +45,9 @@ class Anything extends ISuspensionBean {
       subtext: subtext ?? this.subtext,
       extra: extra ?? this.extra,
     );
-    anything.tagIndex = tagIndex;
-    anything.pinyin = pinyin;
-    anything.shortPinyin = shortPinyin;
+    anything.tagIndex = tagIndex ?? this.tagIndex;
+    anything.pinyin = pinyin ?? this.pinyin;
+    anything.shortPinyin = shortPinyin ?? this.shortPinyin;
     return anything;
   }
 }
