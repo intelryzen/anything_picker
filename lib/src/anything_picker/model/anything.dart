@@ -36,11 +36,15 @@ class Anything extends ISuspensionBean {
     String? subtext,
     dynamic extra,
   }) {
-    return Anything(
+    final anything = Anything(
       code ?? this.code,
       text ?? this.text,
       subtext: subtext ?? this.subtext,
       extra: extra ?? this.extra,
     );
+    anything.tagIndex = tagIndex;
+    anything.pinyin = pinyin;
+    anything.shortPinyin = shortPinyin;
+    return anything;
   }
 }
