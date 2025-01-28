@@ -1,3 +1,5 @@
+import 'package:anything_picker/anything_picker.dart';
+
 /// ISuspension Bean.
 abstract class ISuspensionBean {
   bool isShowSuspension = false;
@@ -21,6 +23,15 @@ class SuspensionUtil {
       if (a.getSuspensionTag() == "☆" && b.getSuspensionTag() == "☆") {
         // `☆`를 가진 요소끼리는 기존 순서를 유지
         return originalIndexMap[a]!.compareTo(originalIndexMap[b]!);
+      } else if (a.getSuspensionTag() == b.getSuspensionTag()) {
+        // `getSuspensionTag` 같으면 sortingKey로 오름차순 정렬
+
+        // typecasting
+        final anythingA = (a as Anything);
+        final anythingB = (b as Anything);
+
+        return (anythingA.sortingKey ?? anythingA.text).compareTo(
+            (anythingB.sortingKey ?? anythingB.text));
       } else if (a.getSuspensionTag() == "☆") {
         return -1; // `a`가 `☆`이면 항상 앞쪽
       } else if (b.getSuspensionTag() == "☆") {
