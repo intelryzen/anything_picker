@@ -15,6 +15,7 @@ class AnythingPicker extends StatefulWidget {
   final ScrollController scrollController;
   final String title;
   final String hintText;
+  final String? favoriteTitle;
   final List<String> indexBarData;
   final List<String> favoriteCodes;
   final String Function(String) tagIndexMapper;
@@ -30,6 +31,7 @@ class AnythingPicker extends StatefulWidget {
     required this.hintText,
     this.stickyHeader = false,
     this.selectedCode,
+    this.favoriteTitle,
     this.customItemBuilder,
     double? itemHeight,
     List<String>? favoriteCodes,
@@ -303,6 +305,9 @@ class _AnythingPickerState extends State<AnythingPicker> {
 
   Widget _getSusItem(BuildContext context, String tag,
       {double susHeight = CupertinoStyle.susHeight}) {
+    if (tag == "☆" && widget.favoriteTitle != null) {
+      tag = widget.favoriteTitle!;
+    }
     return Container(
       height: susHeight,
       width: MediaQuery.of(context).size.width,
