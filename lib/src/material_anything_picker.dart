@@ -266,7 +266,7 @@ class _MaterialAnythingPickerState extends State<MaterialAnythingPicker> {
                             if (isSelected)
                               Icon(
                                 Icons.check,
-                                color: MaterialPaletteUtil.primary(context),
+                                color: Theme.of(context).primaryColor,
                               )
                           ],
                         ),
