@@ -9,7 +9,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AnythingPicker extends StatefulWidget {
+class CupertinoAnythingPicker extends StatefulWidget {
   final List<Anything> dataList;
   final bool stickyHeader;
   final ScrollController scrollController;
@@ -24,7 +24,7 @@ class AnythingPicker extends StatefulWidget {
   final String? selectedCode;
   final double itemHeight;
 
-  const AnythingPicker(
+  const CupertinoAnythingPicker(
     this.scrollController, {
     required this.dataList,
     required this.title,
@@ -44,10 +44,10 @@ class AnythingPicker extends StatefulWidget {
         itemHeight = itemHeight ?? CupertinoStyle.itemHeight;
 
   @override
-  State<AnythingPicker> createState() => _AnythingPickerState();
+  State<CupertinoAnythingPicker> createState() => _CupertinoAnythingPickerState();
 }
 
-class _AnythingPickerState extends State<AnythingPicker> {
+class _CupertinoAnythingPickerState extends State<CupertinoAnythingPicker> {
   List<Anything> originList = [];
   List<Anything> dataList = [];
 
@@ -417,25 +417,3 @@ class _AnythingPickerState extends State<AnythingPicker> {
     super.dispose();
   }
 }
-
-// actions: [
-//   Padding(
-//     padding: const EdgeInsets.only(right: CupertinoStyle.padding),
-//     child: SizedBox(
-//       height: 30,
-//       width: 30,
-//       child: CupertinoButton(
-//         onPressed: () {
-//           Navigator.pop(context);
-//         },
-//         padding: EdgeInsets.zero,
-//         color: CupertinoColors.systemGrey5,
-//         borderRadius: BorderRadius.circular(360),
-//         child: Icon(
-//           color: CupertinoColors.secondaryLabel,
-//           Icons.clear,
-//         ),
-//       ),
-//     ),
-//   )
-// ],
