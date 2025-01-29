@@ -70,6 +70,7 @@ class _MaterialAnythingPickerState extends State<MaterialAnythingPicker> {
         toolbarHeight: 56,
         elevation: 0,
         scrolledUnderElevation: 0,
+        centerTitle: false,
         title: textFieldVisible
             ? TextField(
                 focusNode: focusNode,
