@@ -1,8 +1,8 @@
-import 'package:anything_picker/src/anything_picker.dart';
+import 'package:anything_picker/src/cupertino_anything_picker.dart';
 import 'package:anything_picker/src/anything_picker/model/anything.dart';
+import 'package:anything_picker/src/material_anything_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 Future showAnythingPicker(
@@ -24,7 +24,7 @@ Future showAnythingPicker(
       expand: true,
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) => AnythingPicker(
+      builder: (context) => CupertinoAnythingPicker(
         ModalScrollController.of(context)!,
         title: title,
         hintText: hintText,
@@ -42,7 +42,7 @@ Future showAnythingPicker(
     showMaterialModalBottomSheet(
       expand: true,
       context: context,
-      builder: (context) => AnythingPicker(
+      builder: (context) => MaterialAnythingPicker(
         ModalScrollController.of(context)!,
         title: title,
         hintText: hintText,
