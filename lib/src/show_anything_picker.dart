@@ -39,7 +39,7 @@ Future showAnythingPicker(
       ),
     );
   } else {
-    showMaterialModalBottomSheet(
+    return await showMaterialModalBottomSheet(
       expand: true,
       context: context,
       builder: (context) => MaterialAnythingPicker(
