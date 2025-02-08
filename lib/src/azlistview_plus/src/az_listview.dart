@@ -162,7 +162,7 @@ class _AzListViewState extends State<AzListView> {
     if (index != -1) {
       int tagIndex = dataTags.indexOf(tag);
       itemScrollController.scrollController
-          ?.jumpTo(index * widget.itemHeight + tagIndex * widget.susItemHeight);
+          ?.jumpTo(index * widget.itemHeight + tagIndex * widget.susItemHeight + widget.susItemHeight/4);
       // itemScrollController.jumpTo(index: index);
     }
   }
