@@ -1,4 +1,26 @@
 abstract class AnythingPickerUtil {
+  static final Map<String, dynamic> supportedLanguages = {
+    "ko": getKoreanInitial,
+    "en": getEnglishInitial,
+  };
+
+  /// Returns a mapping function based on the provided language code.
+  /// If the language code is not supported, the default language's mapper is returned.
+  static String Function(String) getSupportedMapper(String languageCode, [String defaultLanguageCode = "en"]) {
+    // Try to get the function for the provided language code.
+    final mapper = supportedLanguages[languageCode];
+    if (mapper != null) {
+      return mapper;
+    }
+    // Fallback to the default language code.
+    final defaultMapper = supportedLanguages[defaultLanguageCode];
+    if (defaultMapper != null) {
+      return defaultMapper;
+    }
+    // If no mapper is found, you could either throw an exception or return a fallback.
+    throw Exception("No mapping function found for language codes: $languageCode or $defaultLanguageCode");
+  }
+
   static String getEnglishInitial(String input) {
     if (input.isEmpty) {
       return "#";
